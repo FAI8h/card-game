@@ -44,3 +44,21 @@ export function peekTop(stack) {
 export function push(stack, card) {
     stack.push(card);
 }
+
+export function buildInitialDeck() {
+  return shuffle(createStandardDeck());
+}
+
+
+export function handSizeFor(playerCount) {
+  const table = {
+    2: 16,
+    3: 12,
+      4: 8,
+    6: 4,
+  };
+  if (!table[playerCount]) {
+    throw new Error(`no handSize defined yet for ${playerCount} players`);
+  }
+  return table[playerCount];
+};
