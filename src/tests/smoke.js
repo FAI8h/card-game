@@ -1,4 +1,4 @@
-import { startServer } from "../server/wsRouter.js";
+import { startServer } from "../server/index.js";
 import WebSocket from "ws";
 
 const wss = startServer(8081);
