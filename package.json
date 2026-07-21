@@ -4,7 +4,7 @@
   "description": "multiplayer card game server - generic engine + per-game rules",
   "main": "src/server/index.js",
   "scripts": {
-    "start": "node src/server/index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "cards",
@@ -13,6 +13,7 @@
   "author": "@OGdev",
   "type": "module",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "ws": "^8.21.1"
   }
 }
