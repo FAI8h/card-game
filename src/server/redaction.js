@@ -18,8 +18,9 @@ function redactForPlayer(state, playerId) {
     turnPhase: state.turnPhase,
     phase: state.phase,
     winnerId: state.winnerId,
-    players: redactedPlayers,
-    // deck and discardPile deliberately omitted - not even a count
+      players: redactedPlayers,
+      discardedPileCount: state.discardPile.length,
+    deckCount : state.deck.length
   };
 }
 

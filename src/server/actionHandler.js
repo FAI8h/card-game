@@ -1,7 +1,5 @@
-// ---- 4. Route by actionType -> 5. handler ----
-// Each handler takes (state, playerId, payload) and returns { ok, reason?, ... }.
-// The actual take/discard logic lives in whatever you registered via
-// registerGame() in matchManager - this just looks it up and calls it.
+// src/server/actionHandler.js
+
 import { sendTo } from "./connectionRegistry.js";
 import { getMatchState, getGameHandlers } from "./matchManager.js";
 import { broadcastMatchState } from "./redaction.js";
@@ -18,18 +16,20 @@ function isSuccessResult(result) {
 }
 
 function applyTurnFlow(state, gameHandlers) {
-  if (typeof gameHandlers.advanceTurn === "function") {
-    gameHandlers.advanceTurn(state);
-  }
-
+  // 1. Check win condition FIRST (before advancing the turn!)
   if (typeof gameHandlers.calculateWon === "function") {
     for (const player of state.players) {
       if (gameHandlers.calculateWon(player, player.hand.length)) {
         state.phase = "ended";
         state.winnerId = player.id;
-        break;
+        return; // Match over, do NOT advance the turn
       }
     }
+  }
+
+  // 2. If no one won, advance the turn phase
+  if (typeof gameHandlers.advanceTurn === "function") {
+    gameHandlers.advanceTurn(state);
   }
 }
 
@@ -90,5 +90,4 @@ export function handleAction(playerId, msg) {
 
   // ---- 6. broadcast ----
   broadcastMatchState(msg.matchId, state);
-};
-
+}
