@@ -2,13 +2,16 @@ export function canTake(state, playerId, source) {
   const isMyTurn = state.players[state.turnIndex].id === playerId;
   if (!isMyTurn) return false;
 
+  // ADD THIS: Must be in the 'take' phase to take!
+  if (state.turnPhase !== "take") return false;
+
   if (source === "deck") {
     return state.deck.length > 0;
   }
   if (source === "discardPile") {
     return state.discardPile.length > 0;
   }
-  return false; // invalid source string
+  return false; 
 };
 
 export function takeCard(state, playerId, source) {

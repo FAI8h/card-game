@@ -2,10 +2,13 @@ export function canDiscard(state, playerId, cardId) {
   const isMyTurn = state.players[state.turnIndex].id === playerId;
   if (!isMyTurn) return false;
 
+  // ADD THIS: Must be in the 'discard' phase to discard!
+  if (state.turnPhase !== "discard") return false;
+
   const player = state.players.find((p) => p.id === playerId);
   const cardIndex = player.hand.findIndex((c) => c.id === cardId);
 
-  return cardIndex !== -1; // -1 means "not found"
+  return cardIndex !== -1; 
 };
 
 export function discardCard(state, playerId, cardId) {
