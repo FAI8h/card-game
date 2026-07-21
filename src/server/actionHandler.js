@@ -34,6 +34,15 @@ function applyTurnFlow(state, gameHandlers) {
 }
 
 const actionHandlers = {
+  ready(state, playerId, payload, gameHandlers) {
+    //prevent double ready
+    if (state.readyPlayers.includes(playerId)) {
+      return { ok: false, reason: "already_ready" };
+    }
+
+    state.readyPlayers.push(playerId);
+    
+  },
   take(state, playerId, payload, gameHandlers) {
     const takeHandler = resolveHandler(gameHandlers, "take", "takeCard");
     if (!takeHandler) {

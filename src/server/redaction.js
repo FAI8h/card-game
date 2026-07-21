@@ -16,7 +16,7 @@ function redactForPlayer(state, playerId) {
     matchId: state.matchId,
     turnIndex: state.turnIndex,
     turnPhase: state.turnPhase,
-    phase: state.phase,
+      phase: state.phase,
     winnerId: state.winnerId,
       players: redactedPlayers,
       discardedPileCount: state.discardPile.length,

@@ -40,7 +40,7 @@ export function createMatchFromRoom(room) {
     deck, // whatever's left after dealHands popped cards off
     discardPile: [],
     players,
-    phase: "playing", // "playing" | "ended"
+      phase: "playing", // "playing" | "ended" | "readying"
     winnerId: null,
   };
 

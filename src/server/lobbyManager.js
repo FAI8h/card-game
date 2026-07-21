@@ -20,7 +20,10 @@ export function createLobby(hostId, gameType, targetPlayerCount) {
     targetPlayerCount,
     hostId,
     players: [{ id: hostId }],
-    status: "waiting", // "waiting" | "started"
+      status: "waiting", // "waiting" | "started"
+      phase: "readying",
+      turnPhase : "wating",
+    readyPlayers : [hostId]
   };
 
   rooms.set(roomId, room);
@@ -34,7 +37,8 @@ export function joinLobby(roomId, playerId) {
   if (room.players.find((p) => p.id === playerId)) return { ok: false, reason: "already_in_room" };
   if (room.players.length >= room.targetPlayerCount) return { ok: false, reason: "room_full" };
 
-  room.players.push({ id: playerId });
+    room.players.push({ id: playerId });
+    room.readyPlayers.push(playerId)
   return { ok: true, room };
 }
 
